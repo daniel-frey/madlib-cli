@@ -1,11 +1,11 @@
-from .madlib import read_madlib, run_madlibs
+from madlib import read_madlib, run_madlibs
 import pytest
 
 
 def test_read_madlib_file():
     """Test madlib file read."""
-    actual_filename = 'sample_template'
-    expected_output = 'Hello {name}!\n'
+    actual_filename = 'madlib_test'
+    expected_output = 'The dog {Verb}\n'
 
     assert read_madlib(actual_filename)[1] == expected_output
 

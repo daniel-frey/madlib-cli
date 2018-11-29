@@ -27,7 +27,7 @@ def welcome_user():
     '''))
 
 
-def read_madlib():
+def read_madlib(filename=None):
     """
     Take the user's input, and read the file.
 
@@ -44,7 +44,7 @@ def read_madlib():
 
         return [False, 'Incorrect file type was chosen.']
     except FileNotFoundError:
-        return [False, 'Your file was not found']
+        return [False, 'The specificed file does not exist.']
     except IOError:
         return [False, 'There was an error reading this file']
     except Exception:

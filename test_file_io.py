@@ -1,11 +1,11 @@
-from .file_io import read_file, write_file
+from file_io import read_file, write_file
 import pytest
 
 
 def test_read_file():
     """Testing read_file for successful file read."""
-    filename = 'sample'
-    assert read_file(filename) == 'testfile\n'
+    filename = 'test_file'
+    assert read_file(filename) == 'test!\n'
 
 
 def test_read_file_does_not_exist():
