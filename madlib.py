@@ -100,7 +100,7 @@ def run():
     """Run the application."""
     welcome_user()
     while True:
-        unformatted_madlibs = read_madlib_file()
+        unformatted_madlibs = read_madlib()
         run_madlibs_template(unformatted_madlibs)
 
 
