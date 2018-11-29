@@ -55,12 +55,9 @@ def run_madlibs(madlibs_template):
     """
     Take a madlib file and use it as a template.
 
-    input: list:
-        bool, fail/pass of read
-        string, madlibs template
-    output: list:
-        string, filled madlibs template
-        list: madlibs words to prompt to the user
+    Both the input and the output will be lists.
+    string, filled madlibs template
+    list: madlib words that will present to the user
     """
     if madlibs_template[0] is False:
         print(madlibs_template[1])
