@@ -30,7 +30,7 @@ def welcome_user():
     '''))
 
 
-def read_madlib_file():
+def read_madlib():
     """
     Take the user's input, and read the file.
 
@@ -78,7 +78,6 @@ def prompt_the_user(words):
     The input is the list of words (adjective, noun, etc)
     The output is the list of words that the user has entered.
     """
-    pass
 
 
 def user_output():
@@ -89,7 +88,6 @@ def user_output():
     to do so, then they will be prompted for a filename.
     The application will then write to a file.
     """
-    pass
 
 
 def exit():
