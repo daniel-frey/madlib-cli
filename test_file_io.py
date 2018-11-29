@@ -8,14 +8,14 @@ def test_read_file():
     assert read_file(filename) == 'testfile\n'
 
 
-def test_read_no_file():
+def test_read_file_does_not_exist():
     """Test read_file for file that does not exist."""
     filename = 'nothere'
     with pytest.raises(FileNotFoundError):
         read_file(filename)
 
 
-def test_read_type_error():
+def test_read_incorrect_type():
     """Test read_file for incorrect input type."""
     filename = {}
     with pytest.raises(TypeError):

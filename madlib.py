@@ -1,14 +1,11 @@
 from file_io import read_file, write_file
 from textwrap import dedent
+import re
 import sys
 
 
 def welcome_user():
-    """
-    Greet the user upon application start.
-
-    No input/output
-    """
+    """Greet the user upon application start."""
     ln_1 = 'Welcome to madlibs, Python Edition!!!'
     ln_2 = 'To start, enter the name of a madlib file.'
     ln_3 = 'You will receive a series of prompts. Follow the directions and'
@@ -16,17 +13,17 @@ def welcome_user():
     ln_5 = 'To exit at any time, type "quit". Why would you want to do that?'
 
     print(dedent(f'''
-    {'*' * 60}
+    {'*' * 70}
 
-    {'{:^60}'.format(ln_1)}
+    {'{:^70}'.format(ln_1)}
 
-    {'{:^60}'.format(ln_2)}
-    {'{:^60}'.format(ln_3)}
-    {'{:^60}'.format(ln_4)}
+    {'{:^70}'.format(ln_2)}
+    {'{:^70}'.format(ln_3)}
+    {'{:^70}'.format(ln_4)}
 
-    {'{:^60}'.format(ln_5)}
+    {'{:^70}'.format(ln_5)}
 
-    {'*' * 60}
+    {'*' * 70}
     '''))
 
 
@@ -54,7 +51,7 @@ def read_madlib():
         return [False, 'Something else went wrong.']
 
 
-def run_madlibs_template(madlibs_template):
+def run_madlibs(madlibs_template):
     """
     Take a madlib file and use it as a template.
 
@@ -68,7 +65,18 @@ def run_madlibs_template(madlibs_template):
     if madlibs_template[0] is False:
         print(madlibs_template[1])
     else:
-        print('Here is your madlib!')
+        words = re.findall(r'\{.*?\}', madlibs_template[1])
+        madlibs_template[1] = re.sub(r'\{.*?\}', '{}', madlibs_template[1])
+
+        for i in range(len(words)):
+            words[i] = words[i].strip('{}')
+
+        user_words = prompt_the_user(words)
+
+        print(len(tuple(user_words)))
+        madlibs_template[1] = madlibs_template[1].format(*tuple(user_words))
+
+        return madlibs_template
 
 
 def prompt_the_user(words):
@@ -78,9 +86,20 @@ def prompt_the_user(words):
     The input is the list of words (adjective, noun, etc)
     The output is the list of words that the user has entered.
     """
+    print('The madlib is starting.')
+    words_out = []
+
+    for i in range(len(words)):
+        user_input = input(words[i] + ': ')
+        if user_input == 'exit':
+            exit()
+
+        words_out.append(user_input)
+
+    return words_out
 
 
-def user_output():
+def user_output(madlib_output):
     """
     Take in the madlib template, prompts the user.
 
@@ -88,6 +107,19 @@ def user_output():
     to do so, then they will be prompted for a filename.
     The application will then write to a file.
     """
+    if madlib_output[0] is True:
+        print('Your madlib:\n\n')
+        print(madlib_output[1])
+        user_input = input('Type "y" to save: ').lower()
+
+        if user_input == 'exit':
+            exit()
+        if user_input == 'y':
+            user_filename = input('Enter your filename: ')
+            print(write_file(madlib_output[1], user_filename))
+
+    else:
+        print('There was a problem, please try again')
 
 
 def exit():
@@ -101,7 +133,13 @@ def run():
     welcome_user()
     while True:
         unformatted_madlibs = read_madlib()
-        run_madlibs_template(unformatted_madlibs)
+        filled_madlibs = run_madlibs(unformatted_madlibs)
+        user_output(filled_madlibs)
+        user_input = input('Would you like to play again? y/n ')
+        if user_input.lower() == 'y':
+            continue
+
+        exit()
 
 
 if __name__ == "__main__":
