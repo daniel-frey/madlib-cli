@@ -9,8 +9,10 @@ Creation of a command line MadLib type game
 
 - Keeping in mind the concept of Single Responsibility Principle, build a command line tool which will perform the following:
 - Print a welcome message to the user, explaining the Madlib process and command line interactions
-- Read a template Madlib file (Example), and parse that file into usable parts.
+- Read a template Madlib file, and parse that file into usable parts.
 - You need to decide what components of this file are useful, and how to break those useful pieces apart
+- Write the completed template to a new file on your file system (in the repo).
+
 
 # Running the Application
 
